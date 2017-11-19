@@ -1,0 +1,167 @@
+/* Used is the CSS3 */
+
+/* Import some Google fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.intro{
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    background: url('https://static.pexels.com/photos/113850/pexels-photo-113850.jpeg') 50% 50%;
+    background-size: cover;
+    background-repeat:no-repeat;
+    /*background-position: center;*/
+    display: table;
+    top:0;
+}
+
+.intro .inner{
+    display: table-cell; /* This will allow us to align our text in center of the table */
+    vertical-align: middle;
+    width: 100%;
+    max-width: none;
+}
+
+.content{
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content h1{
+    font-family: 'Raleway', sans-serif;
+    color: #F9F3F4;
+    text-shadow: 0px 0px 300px #000;
+    font-size: 500%;
+}
+
+.portBtn {
+    border-radius: 9px;
+    font-family: 'Oswald', sans-serif;
+    color: #ffffff;
+    font-size: 135%;
+    padding: 10px 20px;
+    border: solid #ffffff 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.portBtn:hover{
+    color: #54ff45;
+    border: solid #1ece18 3px;
+}
+
+/* Media Queries for Above Landing Page*/
+
+@media screen and (max-width: 768px) {
+    .content h1{
+        font-size: 250%;
+    }
+    .portBtn{
+        font-size: 110%;
+        padding: 7px 15px;
+    }
+}
+
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+#displayText{
+    margin: 0 0 10px!important;
+    padding-left: 10px !important;
+}
+
+#displayselfText{
+    margin: 0 0 10px 10px !important;
+    padding-left: 10px !important;
+}
+
+.img-circle{
+    margin: 0 10px !important;
+}
+
+.setMargin{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.alignChatBox{
+    position: fixed;
+    left: 68%;
+    bottom: 0px;
+    right: 5px;
+}
+
+a {
+    color:#ffffff;
+    text-decoration:solid; }
+
+a:hover { text-decoration:none;
+    color: red;
+}

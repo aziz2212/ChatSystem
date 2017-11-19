@@ -1,0 +1,121 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #ADABAB;
+}
+
+.container{
+    background: url("../image/photo_bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    color: #666;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+    color: #017572;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-color:#017572;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-color:#017572;
+}
+
+.center-align{
+    text-align: center;
+}
+
+.login-box {
+    background-color: white;
+    max-width: 340px;
+    margin: 0 auto;
+    position: relative;
+    top: 80px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 50px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+h2 {
+    background-color: #665851;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 1.4em;
+    line-height: 2.8em;
+}
+
+#signUp_button {
+    margin-top: 0px;
+    border: 0;
+    border-radius: 2px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    background-color: #665851;
+    cursor: pointer;
+    outline: none;
+}
+
+#signIn_button {
+    margin-top: 0px;
+    border: 0;
+    border-radius: 2px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.7em;
+    letter-spacing: 1px;
+    background-color: #c83636;
+    cursor: pointer;
+    outline: none;
+}
+
+
+p.small {
+    font-size: 0.8em;
+    margin: 20px 0 0;
+}
