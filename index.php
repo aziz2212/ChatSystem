@@ -6,38 +6,9 @@
  * Time: 3:22 PM
  */
 
-include "session.php";
 include "pages/DBconnect.php";
-?>
-<?php
+include "session.php";
 
-    function get_msg(){
-        $queryMsg = "SELECT `SENDER` , `MESSAGE` FROM chatLog";
-        $runQry = mysqli_query($dbconnect,$queryMsg);
-
-        $messages = array();
-        while($message = mysqli_fetch_array($runQry)){
-            $messages[] = array('sender'=>$message['sender'],
-                'message'=>$message['message']);
-        }
-
-        return $messages;
-
-    }
-
-    // This function will have two parameter Sender and Message
-    function send_msg($message){
-        $sender = $_SESSION['login_usr'];
-        if(!empty($sender) && !empty($message)){
-            $sender = mysqli_real_escape_string($_SESSION['login_usr']);
-            $message = mysqli_real_escape_string($message);
-
-            // Query to insert into database
-            mysqli_query($dbconnect,"INSERT INTO chatLog (sender,message) VALUES 
-          ('".$sender."','".$message."')");
-
-        }
-    }
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +43,7 @@ include "pages/DBconnect.php";
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
     <!-- CSS
    ================================================== -->
 
@@ -79,6 +51,21 @@ include "pages/DBconnect.php";
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
 
+    <!-- Javascript with xml http request
+    ================================================== -->
+    <script>
+        function submitChat(){
+            //message variable
+            senderMsg = $('input#btn-input').val();
+            //alert(senderMsg);
+
+            // Checking Send Input Box is not empty
+            if($.trim(senderMsg)!=''){
+
+            }
+        }
+
+    </script>
 
 </head>
 
@@ -104,14 +91,10 @@ include "pages/DBconnect.php";
             <div class="panel-heading" id="accordion">
 
                 <span class="glyphicon glyphicon-comment"></span>
-                WELCOME,
-                <?php
-                    echo strtoupper($_SESSION['login_usr']);
-                ?>
-                <span class="logout"><a id="exit" href="#">EXIT CHAT</a></span>
+                CHAT
                 <!-- A collapsible button -->
                 <div class="btn-group pull-right">
-
+                    <a class="glyphicon glyphicon-off logout"id="logOut"></a>
                     <a type="button" class="btn btn-default btn-xs" data-toggle="collapse"
                        data-parent="#accordion" href="#collapseOne">
                         <span class="glyphicon glyphicon-chevron-down"></span>
@@ -125,7 +108,7 @@ include "pages/DBconnect.php";
 
             <div class="panel-collapse collapse in" id="collapseOne">
 
-                <div class="panel-body">
+                <form class="panel-body" action="" method="post" name="chatForm">
 
                     <ul class="chat">
 
@@ -147,12 +130,6 @@ include "pages/DBconnect.php";
 
                                     <strong class="primary-font">Dummy SelfUser</strong>
 
-                                    <!-- Display Text Posting Time -->
-                                    <small class="pull-right text-muted">
-                                        <!-- Time Icon -->
-                                        <span class="glyphicon glyphicon-time"></span>
-                                        20mins
-                                    </small>
 
                                 </div>
 
@@ -173,46 +150,35 @@ include "pages/DBconnect.php";
 
                         </li>
 
-                        <li class="right clearfix">
-                            <!-- Self User Chat Dialog Design -->
-                            <div class="row setMargin justify-content-center">
+                        <?php
+                        $sqlQuery = "SELECT * FROM chatLog LIMIT 10";
+                        $result = mysqli_query($dbconnect,$sqlQuery);
 
-                                <!-- Header -->
-                                <span class="chat-img pull-right">
-                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar"
-                                     class="img-circle">
-                            </span>
-
-                                <div class="header">
-                                    <!-- display User's Name -->
-
-                                    <strong class="pull-right primary-font">Dummy SelfUser</strong>
-
-                                    <!-- Display Text Posting Time -->
-                                    <small class="pull-left text-muted">
-                                        <!-- Time Icon -->
-                                        <span class="glyphicon glyphicon-time"></span>
-                                        12mins
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <!-- TextDisplay-->
-                                <p id="displayselfText">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to make a type specimen book.
-                                    It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                    It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                                    like Aldus PageMaker including versions of Lorem Ipsum.
-                                </p>
+                        if(mysqli_num_rows($result)>0){
+                            while ($row = mysqli_fetch_assoc($result)){
+                                echo '
+                                        <!-- User 1 Chat Dialog Design -->
+                                           <li class="left clearfix">
+                                               <!-- Self User Chat Dialog Design -->
+                                                   <div class="row setMargin justify-content-center">
+                                                       <div class="header">
+                                                        <!-- display User\'s Name -->
+                                                            <strong class="primary-font">'.strtoupper($row['sender']). ' :</strong>
+                                                        </div>
+                                     ';
+                                echo '
+                                                        <div class="row">
+                                                            <!-- TextDisplay-->
+                                                            <p id="displayText">'.$row['message'].'</p>
+                                                    </div>
+                                            </li>
+                                     ';
+                            }
+                        }
+                        ?>
 
                             </div>
                         </li>
-
                     </ul>
 
                     <!-- Text Area to Type and Send Button -->
@@ -221,18 +187,20 @@ include "pages/DBconnect.php";
 
                         <div class="input-group">
 
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="type your message here.">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="type your message here."
+                            name="messageArea">
 
                             <span class="input-group-btn">
 
-                                <button class="btn btn-warning btn-sm" id="btn-chat">Send</button>
+                                <button class="btn btn-warning btn-sm" id="btn-chat" name="messageBox"
+                                onclick="submitChat()">Send</button>
                             </span>
 
                         </div>
 
                     </div>
 
-                </div>
+                </form>
 
             </div>
 
@@ -241,25 +209,43 @@ include "pages/DBconnect.php";
     </div>
 
 </div>
-<!-- Script to Unset when clicked Exit-->
+<!-- Javascript to unset the session
+    ================================================== -->
 <script type="text/javascript">
     // jQuery Document
     $(document).ready(function(){
         //If user wants to end session
-        $("#exit").click(function(){
-            var exit = confirm("Are you sure you want to end the session?");
+        $("#logOut").click(function(){
+            var exit = confirm("Are you sure you want to LOG OUT?");
             if(exit==true){
-                <?php
-                session_unset();
-                ?>
                 window.location = 'index.php?logout=true';
-
+                <?php session_unset();?>
             }
         });
     });
 </script>
+
 </body>
 
 </html>
 
+<!--Below Code will Store written Data in MYSQL-->
+<?php
+    $senderName =  '';
+    $senderMsg = '';
+    // If the session is set
+    $senderName = $_SESSION['login_usr'];
+     if(isset($_POST['messageBox'])){
+         if(!empty($_POST['messageArea'])){
+            $senderMsg = $_POST['messageArea'];
+         }
+     }
+    if($senderName!=''&&$senderMsg!=''){
+        // insert query in our chatLog table
+        $msgQuery = mysqli_query($dbconnect,"INSERT INTO chatLog (message,sender) VALUES 
+          ('".$senderMsg."','".$senderName."')");
+    }
+
+
+?>
 
