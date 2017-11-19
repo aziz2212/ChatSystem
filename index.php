@@ -75,7 +75,7 @@ include "session.php";
     <div class="inner">
         <div class="content">
             <h1>Chat System</h1>
-            <a class="btn portBtn" href="#">Portfolio</a>
+            <a class="btn portBtn" href="https://smitdoshi.github.io/smitdoshi-portfolio/">Portfolio</a>
         </div>
     </div>
 </section>
