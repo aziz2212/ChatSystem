@@ -7,7 +7,7 @@
  */
 
 // This is a session file
-include('pages/DBconnect.php');
+include('DBconnect.php');
 
 session_start();
 

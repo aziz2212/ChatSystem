@@ -7,7 +7,7 @@
  */
 
 include "pages/DBconnect.php";
-include "session.php";
+include "pages/session.php";
 
 ?>
 
@@ -80,7 +80,7 @@ include "session.php";
                 CHAT
                 <!-- A collapsible button -->
                 <div class="btn-group pull-right">
-                    <a href="session_destroy.php" class="glyphicon glyphicon-off logout"id="logOut"></a>
+                    <a href="pages/session_destroy.php" class="glyphicon glyphicon-off logout" id="logOut"></a>
                     <a type="button" class="btn btn-default btn-xs" data-toggle="collapse"
                        data-parent="#accordion" href="#collapseOne">
                         <span class="glyphicon glyphicon-chevron-down"></span>
