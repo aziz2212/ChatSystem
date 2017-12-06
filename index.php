@@ -8,7 +8,6 @@
 
 include "pages/DBconnect.php";
 include "session.php";
-require "dataPost.php";
 
 ?>
 

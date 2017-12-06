@@ -30,11 +30,11 @@ if(!isset($_POST["regi"])) {
             $_SESSION['login_usr'] = $loginusername; //store the login username to the session
         }
         // redirect it to homepage
-        header("location:index.php");
+        header("location:chat_Main.php");
     } // If cookies are already set then redirect it to the homepage
     elseif ((isset($_SESSION['login_usr'])) && ($_SESSION['login_usr'] == true)) {
         // redirect it to homepage
-        header("location:index.php");
+        header("location:chat_Main.php");
     }
     else {
         $errormsg = "Username or Password is empty";
