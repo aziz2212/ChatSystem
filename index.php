@@ -8,6 +8,7 @@
 
 include "pages/DBconnect.php";
 include "session.php";
+require "dataPost.php";
 
 ?>
 
@@ -31,6 +32,9 @@ include "session.php";
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+<!--- Meta tag to referesh the page every 2 seconds-->
+<!--    ================================================== -->
+<!--    <meta http-equiv="refresh", content="2">-->
 
     <!--- Linking Bootstrap
    ================================================== -->
@@ -49,23 +53,6 @@ include "session.php";
 
     <!-- Reference our CHAT SYSTEM CSS FIle -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
-
-
-    <!-- Javascript with xml http request
-    ================================================== -->
-    <script>
-        function submitChat(){
-            //message variable
-            senderMsg = $('input#btn-input').val();
-            //alert(senderMsg);
-
-            // Checking Send Input Box is not empty
-            if($.trim(senderMsg)!=''){
-
-            }
-        }
-
-    </script>
 
 </head>
 
@@ -94,7 +81,7 @@ include "session.php";
                 CHAT
                 <!-- A collapsible button -->
                 <div class="btn-group pull-right">
-                    <a class="glyphicon glyphicon-off logout"id="logOut"></a>
+                    <a href="session_destroy.php" class="glyphicon glyphicon-off logout"id="logOut"></a>
                     <a type="button" class="btn btn-default btn-xs" data-toggle="collapse"
                        data-parent="#accordion" href="#collapseOne">
                         <span class="glyphicon glyphicon-chevron-down"></span>
@@ -108,10 +95,35 @@ include "session.php";
 
             <div class="panel-collapse collapse in" id="collapseOne">
 
-                <form class="panel-body" action="" method="post" name="chatForm">
+                <form class="panel-body" action="" method="post" name="chatForm" id="autoUpdateForm">
 
                     <ul class="chat">
 
+                        <?php
+                            $sqlQuery = "SELECT * FROM chatLog ORDER BY `msg_id` DESC";
+                            $result = mysqli_query($dbconnect, $sqlQuery);
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '
+                                            <!-- User 1 Chat Dialog Design -->
+                                            <li class="left clearfix">
+                                            <!-- Self User Chat Dialog Design -->
+                                            <div class="row setMargin justify-content-center">
+                                            <div class="header">
+                                            <!-- display User\'s Name -->
+                                            <strong class="primary-font">' . strtoupper($row['sender']) . ' :</strong>
+                                            </div>
+                                        ';
+                                        echo '
+                                            <div class="row">
+                                            <!-- TextDisplay-->
+                                            <p id="displayText">' . $row['message'] . '</p>
+                                            </div>
+                                            </li>
+                                         ';
+                                    }
+                                }
+                        ?>
                         <!-- User 1 Chat Dialog Design -->
                         <li class="left clearfix">
 
@@ -150,33 +162,6 @@ include "session.php";
 
                         </li>
 
-                        <?php
-                        $sqlQuery = "SELECT * FROM chatLog LIMIT 10";
-                        $result = mysqli_query($dbconnect,$sqlQuery);
-
-                        if(mysqli_num_rows($result)>0){
-                            while ($row = mysqli_fetch_assoc($result)){
-                                echo '
-                                        <!-- User 1 Chat Dialog Design -->
-                                           <li class="left clearfix">
-                                               <!-- Self User Chat Dialog Design -->
-                                                   <div class="row setMargin justify-content-center">
-                                                       <div class="header">
-                                                        <!-- display User\'s Name -->
-                                                            <strong class="primary-font">'.strtoupper($row['sender']). ' :</strong>
-                                                        </div>
-                                     ';
-                                echo '
-                                                        <div class="row">
-                                                            <!-- TextDisplay-->
-                                                            <p id="displayText">'.$row['message'].'</p>
-                                                    </div>
-                                            </li>
-                                     ';
-                            }
-                        }
-                        ?>
-
                             </div>
                         </li>
                     </ul>
@@ -192,8 +177,7 @@ include "session.php";
 
                             <span class="input-group-btn">
 
-                                <button class="btn btn-warning btn-sm" id="btn-chat" name="messageBox"
-                                onclick="submitChat()">Send</button>
+                                <button class="btn btn-warning btn-sm" id="btn-chat" name="messageBox">Send</button>
                             </span>
 
                         </div>
@@ -209,43 +193,8 @@ include "session.php";
     </div>
 
 </div>
-<!-- Javascript to unset the session
-    ================================================== -->
-<script type="text/javascript">
-    // jQuery Document
-    $(document).ready(function(){
-        //If user wants to end session
-        $("#logOut").click(function(){
-            var exit = confirm("Are you sure you want to LOG OUT?");
-            if(exit==true){
-                window.location = 'index.php?logout=true';
-                <?php session_unset();?>
-            }
-        });
-    });
-</script>
 
 </body>
 
 </html>
-
-<!--Below Code will Store written Data in MYSQL-->
-<?php
-    $senderName =  '';
-    $senderMsg = '';
-    // If the session is set
-    $senderName = $_SESSION['login_usr'];
-     if(isset($_POST['messageBox'])){
-         if(!empty($_POST['messageArea'])){
-            $senderMsg = $_POST['messageArea'];
-         }
-     }
-    if($senderName!=''&&$senderMsg!=''){
-        // insert query in our chatLog table
-        $msgQuery = mysqli_query($dbconnect,"INSERT INTO chatLog (message,sender) VALUES 
-          ('".$senderMsg."','".$senderName."')");
-    }
-
-
-?>
 
