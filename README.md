@@ -18,8 +18,8 @@ MAC OSX
 ##Login Page:
 ![LoginPage](https://github.com/smitdoshi/ChatSystem/blob/master/screenshot/loginPage.png)
 
-##Sigin Page:
-![LandingPage](https://github.com/smitdoshi/ChatSystem/blob/master/screenshot/onLogin.png)
+##Main Page:
+![LandingPage](https://github.com/smitdoshi/ChatSystem/blob/master/screenshot/MainPage.png)
 
 ##Signup Page:
 ![SignupPage](https://github.com/smitdoshi/ChatSystem/blob/master/screenshot/signup.png)
