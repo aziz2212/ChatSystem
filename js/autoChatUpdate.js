@@ -4,6 +4,7 @@
 
 
 $(document).ready(function () {
+
     var updateInterval = setInterval( function () {
         $.ajax({
             url: 'chatUpdate.php',

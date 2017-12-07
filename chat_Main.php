@@ -103,7 +103,7 @@ require "chatFunction.php";
             </div>
 
             <div class="panel-collapse collapse in" id="collapseOne">
-                <form class="panel-body" action="" method="post" name="chatForm" id="autoUpdateForm">
+                <form class="panel-body" action=" " method="post" name="chatForm" id="autoUpdateForm">
                     <div class="panel-footer">
 
                         <div class="input-group">

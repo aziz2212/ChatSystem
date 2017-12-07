@@ -34,12 +34,14 @@
             }
 
             if ($senderName != '' && $senderMsg != '') {
-//                print_r($senderName);
-//                print_r($senderMsg);
-//                die("Reached here");
+                echo "$senderName<br>";
+                echo "$senderMsg <br>";
+
                 // insert query in our chatLog table
-                $msgQuery = mysqli_query($dbconnect, "INSERT INTO chatLog (message,sender) VALUES 
+                $msgQuery = mysqli_query($dbconnect, "INSERT INTO chatLog (`message`,`sender`) VALUES 
                 ('" . $senderMsg . "','" . $senderName . "')");
+                echo "Whats in here $msgQuery";
+                die("Reached here");
             }
         }
     }
