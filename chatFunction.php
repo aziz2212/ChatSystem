@@ -38,10 +38,9 @@
                 echo "$senderMsg <br>";
 
                 // insert query in our chatLog table
-                $msgQuery = mysqli_query($dbconnect, "INSERT INTO chatLog (`message`,`sender`) VALUES 
+                mysqli_query($dbconnect, "INSERT INTO chatLog (`message`,`sender`) VALUES 
                 ('" . $senderMsg . "','" . $senderName . "')");
-                echo "Whats in here $msgQuery";
-                die("Reached here");
+
             }
         }
     }
