@@ -34,9 +34,7 @@
             }
 
             if ($senderName != '' && $senderMsg != '') {
-                echo "$senderName<br>";
-                echo "$senderMsg <br>";
-
+               
                 // insert query in our chatLog table
                 mysqli_query($dbconnect, "INSERT INTO chatLog (`message`,`sender`) VALUES 
                 ('" . $senderMsg . "','" . $senderName . "')");
